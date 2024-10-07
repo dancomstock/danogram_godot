@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://clgbat5t8pjs1"]
+
+[ext_resource type="Script" path="res://box.gd" id="1_6if4b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_petr2"]
+
+[node name="Box" type="Area2D"]
+script = ExtResource("1_6if4b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_petr2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -5.0
+offset_top = -12.0
+offset_right = 5.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "X"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

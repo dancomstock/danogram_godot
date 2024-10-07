@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdyigrlmohklo"]
+
+[ext_resource type="Script" path="res://puzzle_line.gd" id="1_t4lp3"]
+
+[node name="Puzzle_Line" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("1_t4lp3")

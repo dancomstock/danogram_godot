@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://cda4tpgchpjh3"]
+
+[ext_resource type="ButtonGroup" uid="uid://d2ncjogjjlt73" path="res://color_button_group.tres" id="1_8od6j"]
+[ext_resource type="Script" path="res://color_button.gd" id="2_ek0rj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8eto"]
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="color_button" type="Button"]
+custom_minimum_size = Vector2(20, 20)
+offset_right = 10.0
+offset_bottom = 11.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_v8eto")
+toggle_mode = true
+button_group = ExtResource("1_8od6j")
+script = ExtResource("2_ek0rj")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 20.0
+mouse_filter = 2
