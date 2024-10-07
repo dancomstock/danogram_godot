@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://g37tjk0iwgy6"]
+
+[ext_resource type="Script" path="res://exit_button.gd" id="1_8ddus"]
+
+[node name="HUD" type="CanvasLayer"]
+layer = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -100.0
+offset_right = 20.0
+offset_bottom = -80.0
+grow_vertical = 0
+scale = Vector2(2, 2)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="exit" type="Button" parent="HBoxContainer2"]
+layout_mode = 2
+text = "Quit"
+script = ExtResource("1_8ddus")

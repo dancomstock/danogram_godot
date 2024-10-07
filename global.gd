@@ -9,7 +9,7 @@ var selected_color = 1
 
 #var colors = [Color.BLACK, Color.AQUA]
 
-var color_palette = ['None', Color.BLACK, Color.YELLOW]
+var color_palette = ['None', Color.BLACK, Color.PINK]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

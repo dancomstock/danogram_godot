@@ -30,25 +30,29 @@ func _process(delta: float) -> void:
 	
 func toggle(toggle_to = 'toggle'):
 	if toggle_to == 'cross':
+		$ColorRect.color = Color.hex(0xeeeeeeff)
 		if $Label.visible:
 			self.toggled = 0
 			$Label.visible = false
 		else:
 			self.toggled = -1
-			$ColorRect.visible = false
+			#$ColorRect.visible = false
 			$Label.visible = true
 	elif toggle_to == 'off':
-		$ColorRect.visible = false
+		$ColorRect.color = Color.hex(0xeeeeeeff)
+		#$ColorRect.color = Color.WHITE
+		#$ColorRect.visible = false
 		$Label.visible = false
 		self.toggled = 0
 	else:
 		if self.toggled != Global.selected_color:
 			$ColorRect.color = Global.color_palette[Global.selected_color]
-			$ColorRect.visible = true
+			#$ColorRect.visible = true
 			$Label.visible = false
 			self.toggled = Global.selected_color
 		else:
-			$ColorRect.visible = false
+			$ColorRect.color = Color.hex(0xeeeeeeff)
+			#$ColorRect.visible = false
 			$Label.visible = false
 			self.toggled = 0
 	Global.toggle_signal.emit(self.x_index, self.y_index, self.toggled)

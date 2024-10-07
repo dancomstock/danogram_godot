@@ -34,14 +34,14 @@ func _draw():
 	var x_origin = 10
 	var y_origin = 30
 	
-	draw_line(Vector2(x_origin, y_origin), Vector2(column_length+x_origin, y_origin), Color.GRAY, 3)
-	draw_line(Vector2(x_origin, y_origin), Vector2(x_origin, row_length+y_origin), Color.GRAY, 3)
+	draw_line(Vector2(x_origin, y_origin), Vector2(column_length+x_origin, y_origin), Color.DARK_GRAY, 3)
+	draw_line(Vector2(x_origin, y_origin), Vector2(x_origin, row_length+y_origin), Color.DARK_GRAY, 3)
 	for y in range(1,row_amount+1):
 		var size = 1
 		if (y - get_parent().column_puzzle[0].size()) % 5 == 0 or y == row_amount:
 			size = 3
 		var y_loc = y_origin + y * box_size
-		draw_line(Vector2(x_origin, y_loc), Vector2(x_origin + column_length, y_loc), Color.GRAY, size)
+		draw_line(Vector2(x_origin, y_loc), Vector2(x_origin + column_length, y_loc), Color.DARK_GRAY, size)
 		#var row_puzzle = get_parent().row_puzzle[y-1]
 		#var n = 0
 		#for n in range(-1,-row_puzzle.size()-1,-1):
@@ -55,7 +55,7 @@ func _draw():
 		if (x - get_parent().row_puzzle[0].size()) % 5 == 0 or x == column_amount:
 			size = 3
 		var x_loc = x_origin + x * box_size
-		draw_line(Vector2(x_loc, y_origin), Vector2(x_loc, y_origin + row_length), Color.GRAY, size)
+		draw_line(Vector2(x_loc, y_origin), Vector2(x_loc, y_origin + row_length), Color.DARK_GRAY, size)
 		#var ts = str(get_parent().column_puzzle[x-1]) + '\n'
 		#self.add_label(x_loc - x_origin, y_origin, ts)
 		

@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0ht5xxj0774y"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_kdovh"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_kdovh")
+
+[node name="start_button" type="Button" parent="."]
+offset_left = 177.0
+offset_top = 99.0
+offset_right = 820.0
+offset_bottom = 296.0
+theme_override_font_sizes/font_size = 100
+text = "Start"

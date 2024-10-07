@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhasbacanchvt"]
+
+[ext_resource type="Script" path="res://puzzle.gd" id="1_skn2e"]
+[ext_resource type="PackedScene" uid="uid://g37tjk0iwgy6" path="res://hud.tscn" id="2_2oo6v"]
+[ext_resource type="Script" path="res://grid.gd" id="3_d0cro"]
+
+[node name="Puzzle" type="Node2D"]
+script = ExtResource("1_skn2e")
+
+[node name="HUD" parent="." instance=ExtResource("2_2oo6v")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="grid" type="Node2D" parent="."]
+z_index = 1
+script = ExtResource("3_d0cro")

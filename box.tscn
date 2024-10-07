@@ -11,13 +11,12 @@ script = ExtResource("1_6if4b")
 shape = SubResource("RectangleShape2D_petr2")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-visible = false
 offset_left = -10.0
 offset_top = -10.0
 offset_right = 10.0
 offset_bottom = 10.0
 mouse_filter = 2
-color = Color(0, 0, 0, 1)
+color = Color(0.933333, 0.933333, 0.933333, 1)
 
 [node name="Label" type="Label" parent="."]
 visible = false
