@@ -16,7 +16,7 @@ var color_button_scene = load("res://color_button.tscn")
 
 
 
-var board = new_random_game(6, 3)
+var board = new_random_game(20, 20)
 var row_puzzle = generate_puzzle(board)
 var columns = rows_to_columns(board)
 var column_puzzle = generate_puzzle(columns)
@@ -40,7 +40,7 @@ func add_spaces_to_puzzle(puzzle_rows):
 		if new_row.size() < max_length:
 			var temp_array = []
 			temp_array.resize(max_length - new_row.size())
-			temp_array.fill(' ')
+			temp_array.fill({"count":' ',"color":0})
 			temp_array.append_array(new_rows[i])
 			new_rows[i] = temp_array
 		i += 1
@@ -53,24 +53,51 @@ func new_random_game(x, y):
 		result.append([])
 		for column in range(0, x):
 			#randi_range(0,1)
-			result[row].append(randi_range(0,1))
+			result[row].append(randi_range(0,2))
 	return result
 
 
+#func generate_puzzle_line(line):
+	#var counter = 0
+	#var solution_line = []
+	#for box in line:
+		#if box == 1:
+			#counter += 1
+		#elif counter > 0:
+			#solution_line.append(counter)
+			#counter = 0
+	#if counter > 0 or solution_line == []:
+		#if counter == 0:
+			#solution_line.append(' ')
+		#else:
+			#solution_line.append(counter)
+	#return solution_line
+	
 func generate_puzzle_line(line):
 	var counter = 0
 	var solution_line = []
+	var last_color = -1
 	for box in line:
-		if box == 1:
+		if box == last_color and box != 0:
+			counter += 1
+		elif last_color < 1 and box != 0:
 			counter += 1
 		elif counter > 0:
-			solution_line.append(counter)
-			counter = 0
+			solution_line.append({"count":counter,"color":last_color})
+			if box == 0:
+				counter = 0
+			else: 
+				counter = 1
+		#elif last_color == 0 and box != 0:
+			#counter += 1
+		#elif box != 0 and counter == 0:
+			#counter += 1
+		last_color = box
 	if counter > 0 or solution_line == []:
 		if counter == 0:
-			solution_line.append(' ')
+			solution_line.append({"count":' ',"color":0})
 		else:
-			solution_line.append(counter)
+			solution_line.append({"count":counter,"color":last_color})
 	return solution_line
 	
 
@@ -78,9 +105,7 @@ func generate_puzzle(rows):
 	var row_solutions = []
 	for row in rows:
 		row_solutions.append(self.generate_puzzle_line(row))
-	print(row_solutions)
 	row_solutions = self.add_spaces_to_puzzle(row_solutions)
-	print(row_solutions)
 	return row_solutions
 
 
@@ -114,17 +139,15 @@ func rows_to_columns(board):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
-	
 	var color_button_instance = color_button_scene.instantiate()
 	color_button_instance.color_index = 1
-	color_button_instance.position = Vector2(100,10)
+	color_button_instance.position = Vector2(100,5)
 	add_child(color_button_instance)
-	
+	color_button_instance.button_pressed = true
 	
 	var color_button_instance_2 = color_button_scene.instantiate()
 	color_button_instance_2.color_index = 2
-	color_button_instance_2.position = Vector2(150,10)   
+	color_button_instance_2.position = Vector2(125,5)   
 	add_child(color_button_instance_2)
 	
 	
@@ -149,7 +172,8 @@ func _ready() -> void:
 		for box in column:
 			var puzzle_box_instance = puzzle_box_scene.instantiate()
 			add_child(puzzle_box_instance)
-			puzzle_box_instance.text = str(box)
+			puzzle_box_instance.bg_color = Global.color_palette[box['color']]
+			puzzle_box_instance.text = str(box['count'])
 			puzzle_box_instance.position = Vector2(xn,y)
 			y += 20
 		xn += 20
@@ -159,7 +183,8 @@ func _ready() -> void:
 		for box in row_puzzle[y_index]:
 			var puzzle_box_instance = puzzle_box_scene.instantiate()
 			add_child(puzzle_box_instance)
-			puzzle_box_instance.text = str(box)
+			puzzle_box_instance.bg_color = Global.color_palette[box['color']]
+			puzzle_box_instance.text = str(box['count'])
 			puzzle_box_instance.position = Vector2(x,y)
 			x += 20
 		var x_index = 0
@@ -186,6 +211,8 @@ func won():
 		return true
 
 func on_toggle_signal(x_index, y_index, toggled):
+	if toggled == -1:
+		toggled = 0
 	self.input_rows[y_index][x_index] = toggled
 	self.won()
 
@@ -197,6 +224,15 @@ func _input(event):
 	if event.is_action_pressed("zoom_out"):
 		zoom_level -= Vector2(.1,.1)
 		$Camera2D.zoom = zoom_level
+		
+	if event.is_action("camera_left"):
+		$Camera2D.translate(Vector2(-5,0))
+	if event.is_action("camera_right"):
+		$Camera2D.translate(Vector2(5,0))
+	if event.is_action("camera_up"):
+		$Camera2D.translate(Vector2(0,-5))
+	if event.is_action("camera_down"):
+		$Camera2D.translate(Vector2(0,5))
 	
 
 

@@ -1,26 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://cda4tpgchpjh3"]
+[gd_scene load_steps=7 format=3 uid="uid://cda4tpgchpjh3"]
 
 [ext_resource type="ButtonGroup" uid="uid://d2ncjogjjlt73" path="res://color_button_group.tres" id="1_8od6j"]
 [ext_resource type="Script" path="res://color_button.gd" id="2_ek0rj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8eto"]
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ppqgu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g4spu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_neupy"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wqlun"]
 
 [node name="color_button" type="Button"]
-custom_minimum_size = Vector2(20, 20)
-offset_right = 10.0
-offset_bottom = 11.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_v8eto")
+custom_minimum_size = Vector2(22, 22)
+offset_right = 22.0
+offset_bottom = 22.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ppqgu")
+theme_override_styles/hover = SubResource("StyleBoxFlat_g4spu")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_neupy")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_wqlun")
 toggle_mode = true
 button_group = ExtResource("1_8od6j")
 script = ExtResource("2_ek0rj")
 
 [node name="ColorRect" type="ColorRect" parent="."]
-z_index = -1
 layout_mode = 0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 21.0
+offset_bottom = 21.0
 mouse_filter = 2

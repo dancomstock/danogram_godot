@@ -15,13 +15,13 @@ func _ready() -> void:
 	#print(result)
 	#return result
 
-func add_label(x, y, text):
-	var puzzle_box_instance =  puzzle_box_scene.instantiate()
-	add_child(puzzle_box_instance)
-	puzzle_box_instance.text = text
-	#puzzle_line_instance.horizontal_aligntment=HORIZONTAL_ALIGNMENT_RIGHT
-	#puzzle_line_instance.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
-	puzzle_box_instance.position = Vector2(x ,y)
+#func add_label(x, y, text):
+	#var puzzle_box_instance =  puzzle_box_scene.instantiate()
+	#add_child(puzzle_box_instance)
+	#puzzle_box_instance.text = text
+	##puzzle_line_instance.horizontal_aligntment=HORIZONTAL_ALIGNMENT_RIGHT
+	##puzzle_line_instance.horizontal_alignment=HORIZONTAL_ALIGNMENT_RIGHT
+	#puzzle_box_instance.position = Vector2(x ,y)
 	
 
 

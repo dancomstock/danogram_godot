@@ -43,6 +43,7 @@ func toggle(toggle_to = 'toggle'):
 		self.toggled = 0
 	else:
 		if self.toggled != Global.selected_color:
+			$ColorRect.color = Global.color_palette[Global.selected_color]
 			$ColorRect.visible = true
 			$Label.visible = false
 			self.toggled = Global.selected_color
