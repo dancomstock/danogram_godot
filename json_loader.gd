@@ -47,8 +47,11 @@ func _single_dir_contents(path):
 	var list = []
 	var dir = DirAccess.open(path)
 	if dir:
-		if dir.get_current_dir() != "res://puzzles":
-			dir.include_navigational = true
+		if dir.get_current_dir() != "res://puzzles" and dir.get_current_dir() != "user://puzzles":
+			#dir.include_navigational = true
+			list.append({"folder_name":'back', "path":path + '/..', "previous_dir":path})
+		print(dir.get_directories())
+		print(dir.get_files())
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		#dict["folder_name"] = dir.get_current_dir()
@@ -57,29 +60,37 @@ func _single_dir_contents(path):
 			var full_path = cur_dir + '/' + file_name
 			if dir.current_is_dir():
 				#print(dir.get_current_dir() + '/' + file_name)
-				if file_name != '.':
-					var inner_dict = {"folder_name":file_name, "path":full_path}
+				if file_name != '.': 
+					var inner_dict = {"folder_name":file_name, "path":full_path, "previous_dir":path}
 					print("Found directory: " + full_path)
 					list.append(inner_dict)
 			else:
 				print("Found file: " + full_path)
-				list.append({"file_name":file_name, "path":full_path})
+				list.append({"file_name":file_name, "path":full_path, "previous_dir":path})
 			file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")
 	return list
 
 func load_json(path):
+	var data = {}
 	var json_text = load_from_file(path)
-	var data = JSON.parse_string(json_text)
+	if json_text:
+		data = JSON.parse_string(json_text)
 	return data
 
+func save_json(path, json_dict):
+	var json_string = JSON.stringify(json_dict)
+	save_to_file(path, json_string)
 
-func save_to_file(content, path):
+func save_to_file(path, content):
+	DirAccess.make_dir_recursive_absolute(path.get_base_dir())
 	var file = FileAccess.open(path, FileAccess.WRITE)
 	file.store_string(content)
 
 func load_from_file(path):
+	var content = null
 	var file = FileAccess.open(path, FileAccess.READ)
-	var content = file.get_as_text()
+	if file:
+		content = file.get_as_text()
 	return content

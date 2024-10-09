@@ -12,4 +12,12 @@ func _process(delta: float) -> void:
 	pass
 
 func _button_pressed():
+	Global.path = Global.path.replace("res://","user://")
+	var json = {
+		'progress':Global.progress,
+		'complete':Global.complete
+	}
+	print(json)
+	
+	Global.json_loader.save_json(Global.path, json)
 	get_tree().change_scene_to_packed(main_scene)

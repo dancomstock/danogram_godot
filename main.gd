@@ -33,6 +33,7 @@ func _ready() -> void:
 	#
 	
 	self._display_folder("res://puzzles")
+	#self._display_folder("user://puzzles")
 	
 
 func _display_folder(path):
@@ -49,6 +50,11 @@ func _display_folder(path):
 			#var puzzle_container_instance = puzzle_container_scene.instantiate()
 			#puzzle_container_instance.load_puzzle(file)
 			#$HFlowContainer.add_child(puzzle_container_instance)
+	#if path != "res://puzzles":
+		#var folder_instance = folder_scene.instantiate()
+		#folder_instance.folder_name = '..'
+		#folder_instance.path = path + '/..'
+		#$HFlowContainer.add_child(folder_instance)
 	for file in contents:
 		if file.has('folder_name'):
 			var folder_instance = folder_scene.instantiate()

@@ -1,5 +1,7 @@
 extends Node
 
+var json_loader = load("res://json_loader.tscn").instantiate()
+
 signal toggle_signal
 signal cross_signal
 signal color_signal
@@ -17,13 +19,17 @@ var color_palette = [Color.LIGHT_GRAY, Color.BLACK, Color.PINK]
 var color_override = []
 
 var board = []
+var progress
+var path
+var complete
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	self.toggle_signal.connect(on_toggle_signal)
 	self.color_signal.connect(on_color_signal)
-	pass # Replace with function body.
+	add_child(json_loader)
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

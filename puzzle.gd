@@ -29,6 +29,7 @@ var board
 var row_puzzle 
 var columns 
 var column_puzzle 
+var puzzle_path
 
 
 var input_rows
@@ -49,7 +50,7 @@ func add_spaces_to_puzzle(puzzle_rows):
 		if new_row.size() < max_length:
 			var temp_array = []
 			temp_array.resize(max_length - new_row.size())
-			temp_array.fill({"count":' ',"color":0})
+			temp_array.fill({"count":' ',"color":null})
 			temp_array.append_array(new_rows[i])
 			new_rows[i] = temp_array
 		i += 1
@@ -149,16 +150,23 @@ func rows_to_columns(board):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Global.toggle_signal.connect(on_toggle_signal)
+	
 	#var board = new_random_game(10, 11)
 	
 	#board = new_random_game(Global.x_size, Global.y_size)
-	board = Global.board
+	self.board = Global.board
+	self.input_rows = Global.progress
+	if self.input_rows == [[]]:
+		self.input_rows = create_blank_board(self.board)
+	print(self.input_rows)
+	print(Global.progress)
+
 	row_puzzle = generate_puzzle(board)
 	columns = rows_to_columns(board)
 	column_puzzle = generate_puzzle(columns)
 	
 	for i in Global.color_palette.size()-1:
-		print(i)
 		var color_button_instance = color_button_scene.instantiate()
 		color_button_instance.color_index = i+1
 		color_button_instance.position = Vector2(100+i*25,5)
@@ -171,7 +179,7 @@ func _ready() -> void:
 	
 	
 	#self.board = new_random_game(4, 3)
-	Global.toggle_signal.connect(on_toggle_signal)
+	
 	for row in row_puzzle:
 		var puzzle_box_instance = puzzle_box_scene.instantiate()
 	var y = 40
@@ -191,18 +199,20 @@ func _ready() -> void:
 		for box in column:
 			var puzzle_box_instance = puzzle_box_scene.instantiate()
 			add_child(puzzle_box_instance)
-			puzzle_box_instance.bg_color = Color(Global.color_palette[box['color']])
+			if box['color']:
+				puzzle_box_instance.bg_color = Color(Global.color_palette[box['color']])
 			puzzle_box_instance.text = str(box['count'])
 			puzzle_box_instance.position = Vector2(xn,y)
 			y += 20
 		xn += 20
 			
-	for row in board:
+	for row in input_rows:
 		var x = 20
 		for box in row_puzzle[y_index]:
 			var puzzle_box_instance = puzzle_box_scene.instantiate()
 			add_child(puzzle_box_instance)
-			puzzle_box_instance.bg_color =  Color(Global.color_palette[box['color']])
+			if box['color']:
+				puzzle_box_instance.bg_color =  Color(Global.color_palette[box['color']])
 			puzzle_box_instance.text = str(box['count'])
 			puzzle_box_instance.position = Vector2(x,y)
 			x += 20
@@ -213,11 +223,15 @@ func _ready() -> void:
 			box_instance.x_index = x_index
 			box_instance.y_index = y_index
 			box_instance.position = Vector2(x,y)
+			box_instance.toggle(box)
 			x += 20
 			x_index += 1
 		y += 20
 		y_index += 1
-	input_rows = create_blank_board(board)
+	
+	print(self.input_rows)
+	print(self.board)
+	print(str(self.input_rows) == str(self.board))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -225,10 +239,11 @@ func _process(delta: float) -> void:
 
 
 func won():
-	if self.input_rows == self.board:
+	if str(self.input_rows) == str(self.board):
 		print('you win!')
 		var win_screen_instance = win_screen_scene.instantiate()
 		win_screen_instance.board = self.board
+		Global.complete = true
 		add_child(win_screen_instance)
 		#get_tree().change_scene_to_packed(win_screen_scene)
 		return true
@@ -236,7 +251,8 @@ func won():
 func on_toggle_signal(x_index, y_index, toggled):
 	if toggled == -1:
 		toggled = 0
-	self.input_rows[y_index][x_index] = toggled
+	self.input_rows[y_index][x_index] = int(toggled)
+	Global.progress = self.input_rows
 	self.won()
 
 
