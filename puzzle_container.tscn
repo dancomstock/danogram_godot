@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1dhbkikx8tls"]
+
+[ext_resource type="Script" path="res://puzzle_container.gd" id="1_xpqgb"]
+[ext_resource type="PackedScene" uid="uid://dohqyahjnakcc" path="res://json_loader.tscn" id="2_02c58"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_68n7v"]
+
+[node name="Puzzle_Container" type="Control"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_xpqgb")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.2, 1.2)
+pivot_offset = Vector2(25, 25)
+mouse_filter = 2
+color = Color(0.933333, 0.933333, 0.933333, 1)
+
+[node name="ReferenceRect" type="ReferenceRect" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+border_color = Color(0, 0, 0, 1)
+editor_only = false
+
+[node name="Button" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_68n7v")
+
+[node name="json_loader" parent="." instance=ExtResource("2_02c58")]

@@ -1,0 +1,72 @@
+[gd_scene load_steps=4 format=3 uid="uid://eovdqpyinqup"]
+
+[ext_resource type="Script" path="res://exit_button.gd" id="1_s6eog"]
+[ext_resource type="Script" path="res://win_screen.gd" id="1_y6job"]
+[ext_resource type="Script" path="res://completed.gd" id="3_mcmph"]
+
+[node name="Win_Screen" type="CanvasLayer"]
+script = ExtResource("1_y6job")
+
+[node name="exit" type="Button" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -24.5
+offset_top = -31.0
+offset_right = 24.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Done"
+script = ExtResource("1_s6eog")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -34.0
+offset_right = 34.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "You Win!"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(10, 10)
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(5, 5)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 309.0
+offset_top = 201.0
+offset_right = 349.0
+offset_bottom = 241.0
+
+[node name="Completed" type="Container" parent="."]
+custom_minimum_size = Vector2(500, 500)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_mcmph")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1
+offset_left = 576.0
+offset_top = 324.0
+offset_right = 576.0
+offset_bottom = 324.0
+size_flags_stretch_ratio = 1.2

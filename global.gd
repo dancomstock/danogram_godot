@@ -3,13 +3,21 @@ extends Node
 signal toggle_signal
 signal cross_signal
 signal color_signal
+signal folder_signal
 
 var last_toggle
 var selected_color = 1
 
+var x_size
+var y_size
+
 #var colors = [Color.BLACK, Color.AQUA]
 
-var color_palette = ['None', Color.BLACK, Color.PINK]
+var color_palette = [Color.LIGHT_GRAY, Color.BLACK, Color.PINK]
+var color_override = []
+
+var board = []
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

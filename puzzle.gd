@@ -1,8 +1,12 @@
 extends Node2D
 
+
+var main_scene = load("res://main.tscn")
+var win_screen_scene = load("res://win_screen.tscn")
 var box_scene = load("res://box.tscn")
 var puzzle_box_scene = load("res://puzzle_box.tscn")
 var color_button_scene = load("res://color_button.tscn")
+
 
 #var board = [
 	#[1,0,1],
@@ -16,10 +20,15 @@ var color_button_scene = load("res://color_button.tscn")
 
 
 
-var board = new_random_game(10, 11)
-var row_puzzle = generate_puzzle(board)
-var columns = rows_to_columns(board)
-var column_puzzle = generate_puzzle(columns)
+#var board = new_random_game(10, 11)
+#var row_puzzle = generate_puzzle(board)
+#var columns = rows_to_columns(board)
+#var column_puzzle = generate_puzzle(columns)
+
+var board
+var row_puzzle 
+var columns 
+var column_puzzle 
 
 
 var input_rows
@@ -137,18 +146,28 @@ func rows_to_columns(board):
 	return result
 
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	var color_button_instance = color_button_scene.instantiate()
-	color_button_instance.color_index = 1
-	color_button_instance.position = Vector2(100,5)
-	$HUD/HBoxContainer.add_child(color_button_instance)
-	color_button_instance.button_pressed = true
+	#var board = new_random_game(10, 11)
 	
-	var color_button_instance_2 = color_button_scene.instantiate()
-	color_button_instance_2.color_index = 2
-	color_button_instance_2.position = Vector2(125,5)   
-	$HUD/HBoxContainer.add_child(color_button_instance_2)
+	#board = new_random_game(Global.x_size, Global.y_size)
+	board = Global.board
+	row_puzzle = generate_puzzle(board)
+	columns = rows_to_columns(board)
+	column_puzzle = generate_puzzle(columns)
+	
+	for i in Global.color_palette.size()-1:
+		print(i)
+		var color_button_instance = color_button_scene.instantiate()
+		color_button_instance.color_index = i+1
+		color_button_instance.position = Vector2(100+i*25,5)
+		$HUD/HBoxContainer.add_child(color_button_instance)
+	
+	#var color_button_instance_2 = color_button_scene.instantiate()
+	#color_button_instance_2.color_index = 2
+	#color_button_instance_2.position = Vector2(125,5)   
+	#$HUD/HBoxContainer.add_child(color_button_instance_2)
 	
 	
 	#self.board = new_random_game(4, 3)
@@ -172,7 +191,7 @@ func _ready() -> void:
 		for box in column:
 			var puzzle_box_instance = puzzle_box_scene.instantiate()
 			add_child(puzzle_box_instance)
-			puzzle_box_instance.bg_color = Global.color_palette[box['color']]
+			puzzle_box_instance.bg_color = Color(Global.color_palette[box['color']])
 			puzzle_box_instance.text = str(box['count'])
 			puzzle_box_instance.position = Vector2(xn,y)
 			y += 20
@@ -183,7 +202,7 @@ func _ready() -> void:
 		for box in row_puzzle[y_index]:
 			var puzzle_box_instance = puzzle_box_scene.instantiate()
 			add_child(puzzle_box_instance)
-			puzzle_box_instance.bg_color = Global.color_palette[box['color']]
+			puzzle_box_instance.bg_color =  Color(Global.color_palette[box['color']])
 			puzzle_box_instance.text = str(box['count'])
 			puzzle_box_instance.position = Vector2(x,y)
 			x += 20
@@ -208,6 +227,10 @@ func _process(delta: float) -> void:
 func won():
 	if self.input_rows == self.board:
 		print('you win!')
+		var win_screen_instance = win_screen_scene.instantiate()
+		win_screen_instance.board = self.board
+		add_child(win_screen_instance)
+		#get_tree().change_scene_to_packed(win_screen_scene)
 		return true
 
 func on_toggle_signal(x_index, y_index, toggled):

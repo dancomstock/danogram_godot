@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://tvnubdl0d485"]
+
+[ext_resource type="Script" path="res://folder.gd" id="1_ojlgd"]
+[ext_resource type="PackedScene" uid="uid://dohqyahjnakcc" path="res://json_loader.tscn" id="2_636ja"]
+
+[node name="Folder" type="Control"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 50.0
+offset_bottom = 50.0
+script = ExtResource("1_ojlgd")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Folder Name"
+
+[node name="json_loader" parent="." instance=ExtResource("2_636ja")]
