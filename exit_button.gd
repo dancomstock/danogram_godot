@@ -27,4 +27,6 @@ func _button_pressed():
 	print(json)
 	
 	Global.json_loader.save_json(save_path, json)
+	#get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+
 	get_tree().change_scene_to_packed(main_scene)

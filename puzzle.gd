@@ -150,6 +150,8 @@ func rows_to_columns(board):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	get_tree().auto_accept_quit = false
+
 	Global.toggle_signal.connect(on_toggle_signal)
 	
 	#var board = new_random_game(10, 11)
@@ -159,8 +161,6 @@ func _ready() -> void:
 	self.input_rows = Global.progress
 	if self.input_rows == [[]]:
 		self.input_rows = create_blank_board(self.board)
-	print(self.input_rows)
-	print(Global.progress)
 
 	row_puzzle = generate_puzzle(board)
 	columns = rows_to_columns(board)
@@ -229,10 +229,6 @@ func _ready() -> void:
 		y += 20
 		y_index += 1
 	
-	print(self.input_rows)
-	print(self.board)
-	print(str(self.input_rows) == str(self.board))
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
@@ -277,3 +273,28 @@ func _input(event):
 
 func _on_button_toggled(toggled_on: bool) -> void:
 	pass # Replace with function body.
+	
+	
+func _notification(what: int) -> void:
+	
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		print('trying to do save')
+		print(what)
+		# do save stuff here
+		var path = Global.path
+		print(path)
+		#var save_path = Global.path.replace("res://puzzles","user://saves/")
+		#save_path = Global.path.replace("user://puzzles","user://saves/")
+		var save_path
+		if path.contains("res://puzzles/"):
+			save_path = path.replace("res://puzzles/","user://saves/")
+		elif path.contains("user://puzzles/"):
+			save_path = path.replace("user://puzzles/","user://saves/custom/")
+		var json = {
+			'progress':Global.progress,
+			'complete':Global.complete
+		}
+		print(json)
+		
+		Global.json_loader.save_json(save_path, json)
+		get_tree().quit()

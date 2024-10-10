@@ -7,6 +7,7 @@ var folder_scene = load("res://folder.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	get_tree().auto_accept_quit = true
 	Global.folder_signal.connect(_on_folder_signal)
 	#var puzzle_instance = puzzle_scene.instantiate()
 	#add_child(puzzle_instance)
@@ -43,7 +44,7 @@ func _ready() -> void:
 
 func _display_folder(path):
 	var contents = $json_loader._single_dir_contents(path)
-	print(contents)
+	#print(contents)
 	#for file in contents['files']:
 		#if typeof(file) == TYPE_DICTIONARY:
 			#var folder_instance = folder_scene.instantiate()

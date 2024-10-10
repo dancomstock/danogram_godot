@@ -32,11 +32,11 @@ func _dir_contents(path, dict):
 			if dir.current_is_dir():
 				#print(dir.get_current_dir() + '/' + file_name)
 				var inner_dict = {"folder_name":file_name, "files":[], "previous_dir":cur_dir}
-				print("Found directory: " + full_path)
+				#print("Found directory: " + full_path)
 				_dir_contents(full_path, inner_dict)
 				dict['files'].append(inner_dict)
 			else:
-				print("Found file: " + full_path)
+				#print("Found file: " + full_path)
 				dict['files'].append(full_path)
 			file_name = dir.get_next()
 	else:

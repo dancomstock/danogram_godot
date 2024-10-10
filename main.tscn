@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c0ht5xxj0774y"]
+[gd_scene load_steps=5 format=3 uid="uid://c0ht5xxj0774y"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_kdovh"]
 [ext_resource type="PackedScene" uid="uid://b1dhbkikx8tls" path="res://puzzle_container.tscn" id="2_ggvjx"]
 [ext_resource type="PackedScene" uid="uid://dohqyahjnakcc" path="res://json_loader.tscn" id="3_wxd0i"]
+[ext_resource type="PackedScene" uid="uid://dclcmdddprhmw" path="res://splash_screen.tscn" id="4_mfshf"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_kdovh")
@@ -25,14 +26,30 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -128.0
-offset_top = 119.0
-offset_right = 136.0
-offset_bottom = 168.0
+offset_left = -456.0
+offset_top = -87.0
+offset_right = 359.0
+offset_bottom = 307.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Move view with WASD or Arrows
-Zoom with Mousewheel"
+text = "Puzzle Controls:
+
+Click to toggle box on/off
+
+Right click to mark X
+
+Click and drag to apply to multiple boxes
+
+Click color on bottom to change color
+
+Click on hint numbers to X out
+
+Move view with WASD or Arrows
+
+Zoom with Mousewheel
+
+
+"
 
 [node name="Puzzle_Container" parent="." instance=ExtResource("2_ggvjx")]
 visible = false
@@ -42,3 +59,10 @@ offset_right = 361.0
 offset_bottom = 154.0
 
 [node name="json_loader" parent="." instance=ExtResource("3_wxd0i")]
+
+[node name="SplashScreen" parent="." instance=ExtResource("4_mfshf")]
+visible = false
+offset_left = 361.0
+offset_right = -3.0
+offset_bottom = -514.0
+scale = Vector2(0.5, 0.5)

@@ -65,7 +65,7 @@ func _draw():
 func load_puzzle(path):
 	#path = path.replace("user://saves/","res://puzzles/")
 	#path = path.replace("user://puzzles/","res://puzzles/")
-	print(path)
+	#print(path)
 	var json = $json_loader.load_json(path)
 	self.solution = json['solution']
 	self.color_palette = json['color_palette']
@@ -75,7 +75,7 @@ func load_puzzle(path):
 		save_path = path.replace("res://puzzles/","user://saves/")
 	elif path.contains("user://puzzles/"):
 		save_path = path.replace("user://puzzles/","user://saves/custom/")
-	print(path)
+	#print(path)
 	json = $json_loader.load_json(save_path)
 	#self.progress = json['progress']
 	self.progress = json.get('progress', [[]])
