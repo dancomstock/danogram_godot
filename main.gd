@@ -31,8 +31,13 @@ func _ready() -> void:
 		#var puzzle_container_instance = puzzle_container_scene.instantiate()
 		#$HFlowContainer.add_child(puzzle_container_instance)
 	#
-	
+	#DirAccess.make_dir_recursive_absolute("user://puzzles")
+	#var folder_instance = folder_scene.instantiate()
+	#folder_instance.folder_name = 'custom'
+	#folder_instance.path = "user://puzzles"
+	#$HFlowContainer.add_child(folder_instance)
 	self._display_folder("res://puzzles")
+	#self._display_folder("user://puzzles")
 	#self._display_folder("user://puzzles")
 	
 

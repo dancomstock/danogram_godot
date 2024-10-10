@@ -46,28 +46,42 @@ func _dir_contents(path, dict):
 func _single_dir_contents(path):
 	var list = []
 	var dir = DirAccess.open(path)
+	var cur_dir = dir.get_current_dir()
 	if dir:
-		if dir.get_current_dir() != "res://puzzles" and dir.get_current_dir() != "user://puzzles":
+		if cur_dir != "res://puzzles" and dir.get_current_dir() != "user://puzzles":
 			#dir.include_navigational = true
 			list.append({"folder_name":'back', "path":path + '/..', "previous_dir":path})
-		print(dir.get_directories())
-		print(dir.get_files())
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		#dict["folder_name"] = dir.get_current_dir()
-		while file_name != "":
-			var cur_dir = dir.get_current_dir()
+		if cur_dir == "res://puzzles":
+			list.append({"folder_name":'custom', "path":"user://puzzles", "previous_dir":path})
+		if cur_dir == "user://puzzles":
+			list.append({"folder_name":'back', "path":"res://puzzles", "previous_dir":path})
+		var dirs = dir.get_directories()
+		var files = dir.get_files()
+		
+		for dir_name in dirs:
+			var full_path = cur_dir + '/' + dir_name
+			var inner_dict = {"folder_name":dir_name, "path":full_path, "previous_dir":path}
+			list.append(inner_dict)
+		for file_name in files:
 			var full_path = cur_dir + '/' + file_name
-			if dir.current_is_dir():
-				#print(dir.get_current_dir() + '/' + file_name)
-				if file_name != '.': 
-					var inner_dict = {"folder_name":file_name, "path":full_path, "previous_dir":path}
-					print("Found directory: " + full_path)
-					list.append(inner_dict)
-			else:
-				print("Found file: " + full_path)
-				list.append({"file_name":file_name, "path":full_path, "previous_dir":path})
-			file_name = dir.get_next()
+			var inner_dict = {"file_name":file_name, "path":full_path, "previous_dir":path}
+			list.append(inner_dict)
+		#dir.list_dir_begin()
+		#var file_name = dir.get_next()
+		##dict["folder_name"] = dir.get_current_dir()
+		#while file_name != "":
+			#var cur_dir = dir.get_current_dir()
+			#var full_path = cur_dir + '/' + file_name
+			#if dir.current_is_dir():
+				##print(dir.get_current_dir() + '/' + file_name)
+				#if file_name != '.': 
+					#var inner_dict = {"folder_name":file_name, "path":full_path, "previous_dir":path}
+					#print("Found directory: " + full_path)
+					#list.append(inner_dict)
+			#else:
+				#print("Found file: " + full_path)
+				#list.append({"file_name":file_name, "path":full_path, "previous_dir":path})
+			#file_name = dir.get_next()
 	else:
 		print("An error occurred when trying to access the path.")
 	return list

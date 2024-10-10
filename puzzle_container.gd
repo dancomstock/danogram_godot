@@ -63,13 +63,20 @@ func _draw():
 		$Label.visible = true
 
 func load_puzzle(path):
-	path = path.replace("user://","res://")
+	#path = path.replace("user://saves/","res://puzzles/")
+	#path = path.replace("user://puzzles/","res://puzzles/")
+	print(path)
 	var json = $json_loader.load_json(path)
 	self.solution = json['solution']
 	self.color_palette = json['color_palette']
-	path = path.replace("res://","user://")
+	
+	var save_path
+	if path.contains("res://puzzles/"):
+		save_path = path.replace("res://puzzles/","user://saves/")
+	elif path.contains("user://puzzles/"):
+		save_path = path.replace("user://puzzles/","user://saves/custom/")
 	print(path)
-	json = $json_loader.load_json(path)
+	json = $json_loader.load_json(save_path)
 	#self.progress = json['progress']
 	self.progress = json.get('progress', [[]])
 	#self.complete = json['complete']

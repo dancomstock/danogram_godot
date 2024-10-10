@@ -1,5 +1,6 @@
 extends Node
 
+#const json_loader = preload("json_loader.gd")
 var json_loader = load("res://json_loader.tscn").instantiate()
 
 signal toggle_signal

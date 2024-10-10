@@ -12,12 +12,19 @@ func _process(delta: float) -> void:
 	pass
 
 func _button_pressed():
-	Global.path = Global.path.replace("res://","user://")
+	var path = Global.path
+	#var save_path = Global.path.replace("res://puzzles","user://saves/")
+	#save_path = Global.path.replace("user://puzzles","user://saves/")
+	var save_path
+	if path.contains("res://puzzles/"):
+		save_path = path.replace("res://puzzles/","user://saves/")
+	elif path.contains("user://puzzles/"):
+		save_path = path.replace("user://puzzles/","user://saves/custom/")
 	var json = {
 		'progress':Global.progress,
 		'complete':Global.complete
 	}
 	print(json)
 	
-	Global.json_loader.save_json(Global.path, json)
+	Global.json_loader.save_json(save_path, json)
 	get_tree().change_scene_to_packed(main_scene)
