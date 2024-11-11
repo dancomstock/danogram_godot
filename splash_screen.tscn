@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dclcmdddprhmw"]
+[gd_scene load_steps=4 format=3 uid="uid://dclcmdddprhmw"]
 
 [ext_resource type="Texture2D" uid="uid://ru70g7bxqvrs" path="res://assets/cooltext468026909502123.png" id="1_2gifx"]
+[ext_resource type="Script" path="res://start_button.gd" id="2_6813g"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3t6i2"]
 font_size = 100
@@ -67,3 +68,20 @@ editor_only = false
 visible = false
 position = Vector2(573, 282)
 texture = ExtResource("1_2gifx")
+
+[node name="StartButton" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -25.0
+offset_right = 50.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start"
+script = ExtResource("2_6813g")
